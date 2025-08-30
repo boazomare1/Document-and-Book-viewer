@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 import 'dart:math';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import '../models/ai_models.dart';
 
@@ -160,7 +157,7 @@ class AIService {
               similarity: similarity,
               pageNumber: _estimatePageNumber(index, chunks.length),
               createdAt: DateTime.now(),
-              highlights: _extractHighlights(chunks[index], query),
+              highlights: _extractHighlightsFromText(chunks[index], query),
             ),
           );
         }
@@ -244,7 +241,7 @@ class AIService {
               snippet: snippet,
               similarity: similarity,
               pageNumber: _estimatePageNumber(i, lines.length),
-              context: line,
+              highlights: _extractHighlightsFromText(line, query),
               createdAt: DateTime.now(),
             ),
           );
@@ -272,12 +269,12 @@ class AIService {
       return ContentAnalysis(
         id: _uuid.v4(),
         documentId: documentId,
-        analysis: response,
-        totalPages: totalPages,
+        pageCount: totalPages,
         wordCount: content.split(' ').length,
         readingLevel: _calculateReadingLevel(content),
         topics: _extractTopics(response),
         sentiment: _analyzeSentiment(content),
+        detailedAnalysis: {'analysis': response},
         createdAt: DateTime.now(),
       );
     } catch (e) {
@@ -289,7 +286,7 @@ class AIService {
   String _buildSummaryPrompt(String content, SummaryType type, int maxLength) {
     final typeInstructions = {
       SummaryType.brief: 'Provide a brief summary in 2-3 sentences.',
-      SummaryType.comprehensive:
+      SummaryType.detailed:
           'Provide a comprehensive summary covering all major points.',
       SummaryType.executive:
           'Provide an executive summary suitable for business presentation.',
@@ -408,6 +405,7 @@ Analysis:
         sourceLanguage: sourceLanguage,
         targetLanguage: targetLanguage,
         confidence: 0.95,
+        pageNumber: 1,
         createdAt: DateTime.now(),
       );
     } else {
@@ -430,6 +428,7 @@ Analysis:
       sourceLanguage: sourceLanguage,
       targetLanguage: targetLanguage,
       confidence: 0.85,
+      pageNumber: 1,
       createdAt: DateTime.now(),
     );
   }
@@ -497,6 +496,26 @@ Analysis:
   int _estimatePageNumber(int index, int totalItems) {
     // Simple estimation - in production, use actual page mapping
     return ((index / totalItems) * 100).round().clamp(1, 100);
+  }
+
+  List<String> _extractHighlightsFromText(String text, String query) {
+    final highlights = <String>[];
+    final queryLower = query.toLowerCase();
+    final textLower = text.toLowerCase();
+
+    // Find all occurrences of the query in the text
+    int startIndex = 0;
+    while (true) {
+      final index = textLower.indexOf(queryLower, startIndex);
+      if (index == -1) break;
+
+      final start = (index - 20).clamp(0, text.length);
+      final end = (index + query.length + 20).clamp(0, text.length);
+      highlights.add(text.substring(start, end));
+      startIndex = index + 1;
+    }
+
+    return highlights.take(5).toList(); // Limit to 5 highlights
   }
 
   double _calculateTextSimilarity(String query, String text) {
@@ -581,7 +600,6 @@ Analysis:
 
           boxes.add(
             BoundingBox(
-              text: word['WordText'] as String,
               x: coords.toDouble(),
               y: top.toDouble(),
               width: width.toDouble(),

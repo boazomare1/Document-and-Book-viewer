@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import '../../lib/providers/pdf_provider.dart';
 import '../../lib/providers/annotation_provider.dart';
-import '../../lib/providers/ai_provider.dart';
+import '../../lib/providers/accessibility_provider.dart';
 // import '../../lib/screens/pdf_viewer_screen.dart';
 // import '../../lib/widgets/biometric_auth_widget.dart';
 // import '../../lib/widgets/ocr_processing_widget.dart';
@@ -20,7 +20,7 @@ void main() {
           providers: [
             ChangeNotifierProvider(create: (_) => PdfProvider()),
             ChangeNotifierProvider(create: (_) => AnnotationProvider()),
-            ChangeNotifierProvider(create: (_) => AiProvider()),
+            ChangeNotifierProvider(create: (_) => AccessibilityProvider()),
           ],
           child: const MaterialApp(
             home: Scaffold(body: Center(child: Text('Test App'))),
