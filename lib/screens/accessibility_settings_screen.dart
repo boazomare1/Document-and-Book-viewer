@@ -21,14 +21,31 @@ class _AccessibilitySettingsScreenState
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: Text(
-          'Accessibility Settings',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.w600,
-            color: colorScheme.onSurface,
-          ),
+        title: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(8),
+              decoration: BoxDecoration(
+                color: colorScheme.secondaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.accessibility_new,
+                color: colorScheme.onSecondaryContainer,
+                size: 24,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Text(
+              'Accessibility',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: colorScheme.onSurface,
+              ),
+            ),
+          ],
         ),
-        centerTitle: true,
+        centerTitle: false,
         elevation: 0,
         backgroundColor: colorScheme.surface,
         surfaceTintColor: colorScheme.surfaceTint,

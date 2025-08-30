@@ -449,7 +449,7 @@ class AccessibilityProvider extends ChangeNotifier {
       'reflowedColorScheme': _reflowedColorScheme,
       'showFocusRuler': _showFocusRuler,
       'focusRulerHeight': _focusRulerHeight,
-      'focusRulerColor': _focusRulerColor.value,
+      'focusRulerColor': _focusRulerColor.toARGB32(),
       'focusRulerOpacity': _focusRulerOpacity,
       'isTTSEnabled': _isTTSEnabled,
       'isWordByWordTTS': _isWordByWordTTS,
@@ -490,7 +490,7 @@ class AccessibilityProvider extends ChangeNotifier {
         AccessibilityUtils.defaultFocusRulerHeight;
     _focusRulerColor = Color(
       settings['focusRulerColor'] ??
-          AccessibilityUtils.defaultFocusRulerColor.value,
+          AccessibilityUtils.defaultFocusRulerColor.toARGB32(),
     );
     _focusRulerOpacity =
         settings['focusRulerOpacity'] ??

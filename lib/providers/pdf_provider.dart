@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import '../models/pdf_document.dart';
 import '../services/pdf_service.dart';
-import 'package:uuid/uuid.dart';
+
 
 class PdfProvider extends ChangeNotifier {
   final PdfService _pdfService = PdfService();
-  final Uuid _uuid = const Uuid();
 
   List<PdfDocument> _documents = [];
   PdfDocument? _currentDocument;

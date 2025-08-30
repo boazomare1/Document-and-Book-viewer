@@ -13,7 +13,6 @@ class AnnotationService {
 
   final Map<String, List<Annotation>> _annotations = {};
   final Map<String, List<AnnotationVersion>> _versionHistory = {};
-  final Map<String, List<AnnotationLayer>> _layers = {};
   final Uuid _uuid = const Uuid();
 
   // Get annotations for a document
@@ -52,7 +51,6 @@ class AnnotationService {
     );
 
     if (index != null && index >= 0) {
-      final oldAnnotation = _annotations[documentId]![index];
       _annotations[documentId]![index] = annotation;
 
       // Create version history entry
@@ -422,7 +420,7 @@ class AnnotationService {
 
   // Convert color to XFDF format
   String _colorToXFDF(Color color) {
-    return '${color.red} ${color.green} ${color.blue}';
+    return '${color.r} ${color.g} ${color.b}';
   }
 
   // Parse XFDF content

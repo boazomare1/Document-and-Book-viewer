@@ -136,14 +136,31 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     ColorScheme colorScheme,
   ) {
     return AppBar(
-      title: Text(
-        'PDF Library',
-        style: theme.textTheme.headlineSmall?.copyWith(
-          fontWeight: FontWeight.w600,
-          color: colorScheme.onSurface,
-        ),
+      title: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: colorScheme.primaryContainer,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.library_books,
+              color: colorScheme.onPrimaryContainer,
+              size: 24,
+            ),
+          ),
+          const SizedBox(width: 12),
+          Text(
+            'PDF Library',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.w700,
+              color: colorScheme.onSurface,
+            ),
+          ),
+        ],
       ),
-      centerTitle: true,
+      centerTitle: false,
       elevation: 0,
       backgroundColor: colorScheme.surface,
       surfaceTintColor: colorScheme.surfaceTint,
@@ -476,7 +493,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             color: colorScheme.surfaceContainer,
             border: Border(
               right: BorderSide(
-                color: colorScheme.outline.withOpacity(0.2),
+                color: colorScheme.outline.withValues(alpha: 0.2),
                 width: 1,
               ),
             ),
@@ -548,7 +565,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           overflow: TextOverflow.ellipsis,
         ),
         subtitle: Text(
-          '${document.totalPages > 0 ? '${document.totalPages} pages' : 'PDF document'}',
+          document.totalPages > 0 ? '${document.totalPages} pages' : 'PDF document',
           style: theme.textTheme.bodySmall?.copyWith(
             color: colorScheme.onSurfaceVariant,
           ),
@@ -606,10 +623,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             label: const Text('Add PDF'),
             backgroundColor: colorScheme.primary,
             foregroundColor: colorScheme.onPrimary,
-            elevation: 6,
+            elevation: 8,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(20),
             ),
+            extendedPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           ),
         );
       },

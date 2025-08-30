@@ -244,7 +244,7 @@ class Annotation {
       'modifiedAt': modifiedAt.toIso8601String(),
       'author': author,
       'content': content,
-      'color': color.value,
+      'color': color.toARGB32(),
       'opacity': opacity,
       'isVisible': isVisible,
       'properties': properties,
@@ -433,7 +433,7 @@ class AnnotationLayer {
       'documentId': documentId,
       'isVisible': isVisible,
       'isLocked': isLocked,
-      'color': color.value,
+      'color': color.toARGB32(),
       'opacity': opacity,
       'annotations': annotations.map((a) => a.toJson()).toList(),
     };

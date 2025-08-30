@@ -23,11 +23,22 @@ class ModernPdfReaderApp extends StatelessWidget {
         // ChangeNotifierProvider(create: (_) => AIProvider()),
       ],
       child: MaterialApp(
-        title: 'Modern PDF Reader',
+        title: 'COK2010 - Modern PDF Reader',
         debugShowCheckedModeBanner: false,
         theme: _buildLightTheme(),
         darkTheme: _buildDarkTheme(),
         home: const HomeScreen(),
+        builder: (context, child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: MediaQuery.of(context).textScaler.clamp(
+                minScaleFactor: 0.8,
+                maxScaleFactor: 2.0,
+              ),
+            ),
+            child: child!,
+          );
+        },
       ),
     );
   }

@@ -5,14 +5,14 @@ import '../models/pdf_document.dart';
 import '../providers/pdf_provider.dart';
 import '../providers/accessibility_provider.dart';
 import '../providers/annotation_provider.dart';
-import '../models/annotation.dart';
+
 import '../utils/responsive_layout.dart';
 import '../utils/gesture_utils.dart';
-import '../utils/accessibility_utils.dart';
-import '../widgets/tts_controls.dart';
+
+
 import '../widgets/reflowed_reader.dart';
 import '../widgets/annotation_toolbar.dart';
-import '../widgets/drawing_canvas.dart';
+
 import '../widgets/page_navigator.dart';
 import '../widgets/table_of_contents_sidebar.dart';
 
@@ -32,13 +32,11 @@ class _ReaderScreenState extends State<ReaderScreen>
   bool _showAnnotationToolbar = false;
   bool _showPageNavigator = false;
   bool _showTableOfContents = false;
-  bool _isDrawingMode = false;
   int _currentPage = 1;
   int _totalPages = 100;
-  AnnotationType? _selectedAnnotationTool;
   PDFViewController? _pdfViewController;
   bool _isNavigating = false;
-  double _currentZoom = 1.0;
+
   bool _isFullScreen = false;
   bool _isReflowedMode = false;
 
@@ -178,9 +176,7 @@ class _ReaderScreenState extends State<ReaderScreen>
   }
 
   void _onZoomChanged(double scale) {
-    setState(() {
-      _currentZoom = scale;
-    });
+    // Handle zoom changes if needed in the future
   }
 
   void _toggleFullScreen() {
@@ -751,7 +747,7 @@ This mode is particularly helpful for users with:
           child: Transform.translate(
             offset: Offset(0, 100 * _bottomBarAnimation.value),
             child: Container(
-              color: colorScheme.surfaceContainer.withOpacity(0.95),
+              color: colorScheme.surfaceContainer.withValues(alpha: 0.95),
               padding: ResponsiveLayout.getAdaptivePadding(context),
               child: SafeArea(
                 child: Row(

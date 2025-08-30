@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 enum SummaryType { brief, detailed, bulletPoints, executive, academic }
 

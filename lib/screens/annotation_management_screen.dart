@@ -628,7 +628,7 @@ class _AnnotationManagementScreenState extends State<AnnotationManagementScreen>
   void _exportAnnotations() async {
     try {
       final provider = context.read<AnnotationProvider>();
-      final xfdfContent = await provider.exportToXFDF();
+      await provider.exportToXFDF();
 
       // TODO: Implement file saving
       ScaffoldMessenger.of(context).showSnackBar(

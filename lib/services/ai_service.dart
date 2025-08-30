@@ -13,7 +13,6 @@ class AIService {
   final Uuid _uuid = const Uuid();
   final Map<String, String> _apiKeys = {};
   final Map<String, dynamic> _cache = {};
-  final Map<String, List<SearchResult>> _searchIndex = {};
 
   // API Configuration
   static const String _openaiBaseUrl = 'https://api.openai.com/v1';
@@ -301,7 +300,7 @@ Document content:
 $content
 
 Requirements:
-- Maximum ${maxLength} words
+- Maximum $maxLength words
 - Focus on key information and main points
 - Maintain factual accuracy
 - Use clear, concise language

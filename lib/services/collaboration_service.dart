@@ -4,7 +4,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 import '../models/annotation.dart';
-import '../models/pdf_document.dart';
+
 import 'package:uuid/uuid.dart';
 
 class CollaborationService {
